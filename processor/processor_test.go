@@ -5,6 +5,7 @@ package processor
 import(
 	"os"
 	"testing"
+	"path/filepath"
 )
 
 func TestReadFile(t *testing.T){
@@ -30,7 +31,7 @@ func TestReadFile(t *testing.T){
 	}
 
 	//Test reading non-existent file
-	_, err := ReadFile(filepath.Join(tmpDir, "nonexistent.txt"))
+	_, err = ReadFile(filepath.Join(tmpDir, "nonexistent.txt"))
 	if err ==nil{
 		t.Error("Readfile should return error for non-existent file, got nil")
 	}
@@ -49,7 +50,7 @@ func TestWriteFile(t *testing.T){
 	//verify file was written correctly
 	content, err := os.ReadFile(outputFile)
 	if err != nil{
-		t.Fatal("Failed to read written file: %v", err)
+		t.Fatalf("Failed to read written file: %v", err)
 	}
 
 	if string(content) != testContent {
@@ -57,10 +58,11 @@ func TestWriteFile(t *testing.T){
 	}
 
 	//Test writting to invalid location (should error)
-	err := WriteFile("/invalid/path/file.txt", testContent)
+	err = WriteFile("/invalid/path/file.txt", testContent)
 	if err == nil{
 		t.Error("WriteFile should return error for invalid path, got nil")
 	}
 }
  
-//the test will not compile because of some obvious errors liek the fact that we have not created the file to be testes we will do that later
+//the test will not compile because of some obvious errors like the fact that we have not created the file to be testes we will do that later
+//lets try to make a file that will make the test pass
