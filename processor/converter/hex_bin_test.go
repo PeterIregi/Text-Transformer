@@ -97,6 +97,26 @@ func TestConvertBin(t *testing.T){
 		})
 	}
 }
+func TestFindHexMarkers(t *testing.T){
+	tests:= []struct{
+		name string
+		input string
+		expected int //number of markers if any
+	}{
+		{"no markers","hello world",0},
+		{"one marker","1E (hex) world",1},
+		{"two markers","FF (hex) and 1E (hex)", 2},
+	}
+	for _,tt := range tests{
+		t.Run(tt.name, func(t *testing.T){
+			result:=FindHexMarkers(tt.input)
+			if len(result) != tt.expected {
+				t.Errorf("FindMarkers(%q) found %d markers, want %d",tt.input, result, tt.expected)
+			}
+		})
+	}
+}
 
 //it says we have not defined our functions 
 //we will do that later
+//before we do that we should be able to identify hex marker and maybe bin markers for conversion lets put a test for that 
