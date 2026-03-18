@@ -12,7 +12,8 @@ func ConvertHex(text string) string{
 	for i := 0; i< len(words); i++{
 		if words[i]== "(hex)" && i > 0{
 			//convert previous word from hex to decimal
-			hexNum:= words[i+1]
+			hexNum:= words[i-1]//fix from plus to minus to convert the previous word an dnot the next word and move on the + 1 is what brings the out of range error
+			
 			decimal,err := strconv.ParseInt(hexNum,16,64)
 			if err == nil{
 				words[i-1]= strconv.FormatInt(decimal,10)
@@ -60,3 +61,10 @@ func FindHexMarkers(text string)[]int {
 //we will continue tomorrow
 //lets continue
 //it doesnt work it fails we will attempt to fixit 
+//when weleft the test were failing lets see why
+//the error was in our function it was converting the word that was after the hex marker 
+
+//lets fix that and see what happens
+//now the tests should pass
+//as was expected/
+//now lets  convert some uper case words to lowercase and vice versa but first the test
